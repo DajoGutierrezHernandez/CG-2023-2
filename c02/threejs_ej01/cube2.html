@@ -22,19 +22,32 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 //4)que tan lejos están para renderizarlos coordenadas(float)
 
 const renderer = new THREE.WebGLRenderer();
-//llama al metodo WebGLRenderer para crear el render del objeto
+//llama al metodo WebGLRenderer para crear el render del objeto. Parametros:
+//1)la plantilla donde se aplica el renderer
+//2)interfaz del render
+//3)calidad o precision del renderizado
+//4)canal alpha del renderer
+//5)diferentes colores que puede tomar el renderer
+//6)antialising (true or false)
+//7)limitacion del renderer suavizado (true or false)
+//8)aplicar el buffer (true or false)
+//9)la cantidad de GPU que puede consumir ("high-performance", "low-power" or "default")
+//10)cierra el renderer si el rendimiento es lento
+//11)amortiguador de profundidad (true or false)
+//12)dar parametros para el amortiguador de profundidad.
 
 renderer.setSize( window.innerWidth, window.innerHeight );
 // ajusta el tamaño del renderer dependiendo de las dimensiones de la pantalla
 
 document.body.appendChild( renderer.domElement );
-// añade el renderer al codigo en html
+// añade el renderer al codigo en html y al cuerpo del archivo
 
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-//crea un objeto geometrico con vertices en las coordenadas dadas
+//crea un objeto geometrico con vertices en las coordenadas dadas. Parametros:
+// (ancho,alto,profundo,segmentos ancho, segmentos alto, segmentos profundo)
 
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-//crea el material para el objeto
+//crea un objeto el cual no se ve afectado por las luces, utiliza el objeto como parametro, a demás de agregar color
 
 const cube = new THREE.Mesh( geometry, material );
 //crea un cubo utilizando la figura y el material
