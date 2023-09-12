@@ -54,10 +54,12 @@
 
     //cambia la posición de la camara ortogonal
     camera1.position.x=5;
-    camera1.position.z = 5;
+    camera1.position.z= 5;
 	
     //cambia la posición de la esfera
 	sphere.position.x = 10;
+    cube.rotation.x=50;
+    cube.rotation.y=30;
 
     //crea una variable para cambiar la camara
 	let cambio=camera;
