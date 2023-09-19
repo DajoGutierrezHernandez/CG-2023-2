@@ -19,44 +19,50 @@ const geometry2=new THREE.CylinderGeometry(0.4,0.4,0.2);
 
 
 
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+const material = new THREE.MeshNormalMaterial( { color: 0x00ff00 } );
 
 const silla=new THREE.Mesh();
 const asiento = new THREE.Mesh( geometry1, material );
 const espaldar = new THREE.Mesh( geometry2, material );
-const Patas=new Mesh();
+const Patas=new THREE.Mesh();
 const pata1= new THREE.Mesh( geometry1, material );;
 const pata2= new THREE.Mesh( geometry1, material );;
 const pata3= new THREE.Mesh( geometry1, material );;
 const pata4= new THREE.Mesh( geometry1, material );;
-pata1.position.set(-0.7,-1,-0.7);
-pata2.position.set(0.7,-1,0.7);
-pata3.position.set(-0.7,-1,0.7);
-pata4.position.set(0.7,-1,-0.7);
+Patas.add(pata1,pata2,pata3,pata4)
+pata1.position.set(-7,-1,-7);
+pata2.position.set(7,-1,7);
+pata3.position.set(-7,-1,7);
+pata4.position.set(7,-1,-7);
+
 Patas.add(pata1,pata2,pata3,pata4)
 
 Patas.scale.set(0.1,1,0.1);
-espaldar.position.z=-0.7;
-
-
-scene.add(pata1,pata2,pata3,pata4);
-scene.add(asiento);
-scene.add(espaldar);
-
 asiento.scale.set(0.8,0.2,0.8);
+espaldar.scale.set(2,2,2);
+espaldar.position.z=-0.7;
+espaldar.rotation.x=Math.PI/2;
+espaldar.position.y=1;
+
+
+
+silla.add(Patas,asiento,espaldar);
+scene.add(silla);
+
 camera.position.z = 10;
 camera.position.x = 6;
 camera.position.y = 5;
+silla.position.y=2;
 
-espaldar.rotation.x=90;
-espaldar.position.y=0.5;
 
 
 function animate() {
 	requestAnimationFrame( animate );
 	
 
-	
+	silla.rotation.x+=0.01
+    silla.rotation.y+=0.01
+    silla.rotation.z+=0.01
 	
 
 	renderer.render( scene, camera );
