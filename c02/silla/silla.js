@@ -2,7 +2,7 @@ const scene = new THREE.Scene();
 
 
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-
+const camera1 =new THREE.OrthographicCamera( window.innerWidth/-100,window.innerWidth/100,window.innerHeight/-100,window.innerHeight/100,0.1, 1000)
 
 const renderer = new THREE.WebGLRenderer();
 
@@ -52,8 +52,22 @@ scene.add(silla);
 camera.position.z = 10;
 camera.position.x = 6;
 camera.position.y = 5;
+camera1.position.z = 10;
+camera1.position.x = 6;
+camera1.position.y = 5;
 silla.position.y=2;
 
+let cambio=camera;
+
+document.addEventListener('keydown',(event)=>{
+        if(event.key==='a'||event.key==='A'){
+            if(cambio===camera){
+                cambio=camera1;
+            }else{
+                cambio=camera;
+            }
+        }
+    })
 
 
 function animate() {
@@ -65,7 +79,7 @@ function animate() {
     silla.rotation.z+=0.01
 	
 
-	renderer.render( scene, camera );
+	renderer.render( scene, cambio );
 	
 
 }
