@@ -1,6 +1,6 @@
 1. ¿Qué pasa si cambia la curva por una línea recta? ¿Cómo se verá el tubo en este caso?
-r//: al cambiar los puntos de la curva para que quede recta, el cilindro/tubo toma esa mima forma, creando un tubo recto.
+R//: al cambiar los puntos de la curva para que quede recta, el cilindro/tubo toma esa mima forma, creando un tubo recto.
 2. ¿Qué sucede si ajusta el grosor del tubo o cambia el material utilizado para renderizarlo?
-r//:Al cambiar el grosor del tubo este se ve más grande y al cambiar el material este se verá dependiendo si hay una luz o no.
+R//:Al cambiar el grosor del tubo este se ve más grande y al cambiar el material este se verá dependiendo si hay una luz o no.
 3. ¿Puede añadir iluminación y sombreado para mejorar la visualización del tubo?
-r//:En alguunas texturas si ayuda para la visualización del tuvo ya que estas reaccionan a la luz, y sin ellas es como si no hubiera nada en la escena.
+R//:En alguunas texturas si ayuda para la visualización del tubo ya que estas reaccionan a la luz, y sin ellas es como si no hubiera nada en la escena. Aunque hay algunas que se ven mejor que otras.
