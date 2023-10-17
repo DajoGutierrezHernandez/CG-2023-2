@@ -24,7 +24,8 @@
       const Material3 = new THREE.MeshBasicMaterial( { color: 0x00ff00 });
       Material1.transparent=true;
       Material2.transparent=true;
-      Material1.opacity=0;
+      Material3.transparent=true;
+      Material1.opacity=0.1;
       Material2.opacity=0.5;
 
       const sphere = new THREE.Mesh(esfera, Material1);
@@ -42,8 +43,8 @@
 
       // Configurar la posición de la cámara en z
       camera.position.z = 7;
-      
-      
+
+       
       // Renderizar la escena y hacer que la cámara gire
       function animate() {
         requestAnimationFrame(animate);
@@ -53,7 +54,6 @@
         cube.rotation.y += 0.01;
         cone.rotation.z += 0.01;
         
-
 
         renderer.render(scene, camera);
       }
