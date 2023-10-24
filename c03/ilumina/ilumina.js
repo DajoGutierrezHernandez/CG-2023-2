@@ -50,19 +50,16 @@ BMO.add(cuerpo,brazo1,brazo2,pierna1,pierna2,pantalla);
 scene.add(BMO);
 
 
-function makeLights() {
+const light0 = new THREE.AmbientLight( 0x404040); // 10%
+scene.add(light0);
  
-    const light0 = new THREE.AmbientLight( 0x404040, 10 ); // 10%
-    scene.add(light0);
+const light1 = new THREE.PointLight( 0xffffff, 0.4 ); // 50%
+light1.position.set( -10, 13, 7 );
+scene.add(light1);
  
-    const light1 = new THREE.PointLight( TW.WHITE, 0.5 ); // 50%
-    light1.position.set( -12, 15, 10 );
-    scene.add(light1);
- 
-    const light2 = new THREE.DirectionalLight( TW.WHITE, 0.3 );
-    light2.position.set( 0, 100, 10 );
-    scene.add(light2);
-}
+const light2 = new THREE.DirectionalLight( 0xffffff );
+light2.position.set( 0, 100, 10 );
+scene.add(light2);
 
 function animate() {
 	requestAnimationFrame( animate );
