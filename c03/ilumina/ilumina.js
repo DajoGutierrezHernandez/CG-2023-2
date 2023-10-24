@@ -15,12 +15,15 @@ scene.add(axesHelper);
 
 const geometry1 = new THREE.BoxGeometry( 2, 3, 2 );
 const geometry2=new THREE.CylinderGeometry(0.2,0.2,1.5,30);
+const geometry3 = new THREE.BoxGeometry( 1.3, 1, 1);
 
-const material1 = new THREE.MeshBasicMaterial({  color: 0x006666  ,wireframe: false,side: THREE.DoubleSide });
-const material2 = new THREE.MeshBasicMaterial({  color: 0x009999  ,wireframe: false,side: THREE.DoubleSide });
+const material1 = new THREE.MeshLambertMaterial({  color: 0x006666  ,wireframe: false,side: THREE.DoubleSide });
+const material2 = new THREE.MeshLambertMaterial({  color: 0x009999  ,wireframe: false,side: THREE.DoubleSide });
+const material3 = new THREE.MeshLambertMaterial({  color: 0x99ffff  ,wireframe: false,side: THREE.DoubleSide });
 
 const BMO=new THREE.Mesh();
 const cuerpo=new THREE.Mesh(geometry1,material1);
+const pantalla=new THREE.Mesh(geometry3,material3);
 const brazo1=new THREE.Mesh(geometry2,material2);
 const brazo2=new THREE.Mesh(geometry2,material2);
 const pierna1=new THREE.Mesh(geometry2,material2);
@@ -28,25 +31,28 @@ const pierna2=new THREE.Mesh(geometry2,material2);
 
 pierna1.rotation.x=Math.PI/2;
 pierna2.rotation.x=Math.PI/2;
-brazo1.position.x=1;
-brazo2.position.x=-1;
+pierna1.position.y=-1.5;
+pierna2.position.y=-1.5;
+brazo1.position.x=1.2;
+brazo2.position.x=-1.2;
+brazo1.position.y=-0.6;
+brazo2.position.y=-0.6;
 pierna1.position.z=1;
 pierna2.position.z=1;
 pierna1.position.x=0.5;
 pierna2.position.x=-0.5;
 camera.position.z=10;
-camera.position.x=2;
+pantalla.position.z=0.6;
+pantalla.position.y=0.5;
 
-scene.add(pierna1);
-scene.add(pierna2);
-scene.add(brazo1);
-scene.add(brazo2);
-scene.add(cuerpo);
+BMO.add(cuerpo,brazo1,brazo2,pierna1,pierna2,pantalla);
+
+scene.add(BMO);
 
 
 function makeLights() {
  
-    const light0 = new THREE.AmbientLight( 0x202020 ); // 10%
+    const light0 = new THREE.AmbientLight( 0x404040, 10 ); // 10%
     scene.add(light0);
  
     const light1 = new THREE.PointLight( TW.WHITE, 0.5 ); // 50%
@@ -61,7 +67,7 @@ function makeLights() {
 function animate() {
 	requestAnimationFrame( animate );
 	
-	
+	BMO.rotation.y+=0.03;
 
 	renderer.render( scene, camera );
 }
