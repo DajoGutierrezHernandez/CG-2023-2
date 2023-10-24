@@ -1,17 +1,21 @@
-const scene = new THREE.Scene();
 
+const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 const renderer = new THREE.WebGLRenderer();
 
-
 renderer.setSize( window.innerWidth, window.innerHeight );
-
 
 document.body.appendChild( renderer.domElement );
 var axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
+
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableZoom = true;
+controls.enableRotate = true;
+controls.minDistance = 10;
+controls.maxDistance = 500;
 
 const geometry1 = new THREE.BoxGeometry( 2, 3, 2 );
 const geometry2=new THREE.CylinderGeometry(0.2,0.2,1.5,30);
@@ -65,6 +69,7 @@ function animate() {
 	requestAnimationFrame( animate );
 	
 	BMO.rotation.y+=0.03;
+    controls.update();
 
 	renderer.render( scene, camera );
 }
