@@ -14,33 +14,42 @@ const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableZoom = true;
 controls.enableRotate = true;
 controls.minDistance = 3;
-controls.maxDistance = 500;
+controls.maxDistance = 50;
 
 const geometry1 = new THREE.SphereGeometry(2,16,16);
 
 const material1 = new THREE.MeshBasicMaterial({color: 0x006666,wireframe: true});
-const material2 = new THREE.MeshLambertMaterial({  color: 0x006666  ,wireframe: false });
-const material3 = new THREE.MeshPhongMaterial({  color: 0x006666  ,wireframe: false });
+const material2 = new THREE.MeshLambertMaterial({  color: 0x006666  ,wireframe: false, shading: THREE.FlatShading });
+const material3 = new THREE.MeshLambertMaterial({  color: 0x006666  ,wireframe: false});
 const material4 = new THREE.MeshPhongMaterial({  color: 0x006666  ,wireframe: false });
-const sombra1 = new THREE.ShaderMaterial();
-const vertexShader = /*glsl*/`
-void main() {
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-}
-`;
+const customGouraudShader = {
+    vertexShader: `
+      varying vec3 vNormal;
 
-const fragmentShader = /*glsl*/`
-void main() {
-  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-}
-`;
+      void main() {
+        vNormal = normal;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      varying vec3 vNormal;
 
-const material = new ShaderMaterial({
-  fragmentShader: fragmentShader,
-  vertexShader: vertexShader
-});
+      void main() {
+        vec3 lightDirection = normalize(vec3(1, 1, 1));
+        float lightIntensity = dot(vNormal, lightDirection);
 
-const cubo=new THREE.Mesh(geometry1,material1);
+        gl_FragColor = vec4(vec3(1.0, 0.0, 0.0) * lightIntensity, 1.0);
+      }
+    `,
+  };
+
+  // Crear un material personalizado con el sombreador Gouraud
+  const material = new THREE.ShaderMaterial({
+    vertexShader: customGouraudShader.vertexShader,
+    fragmentShader: customGouraudShader.fragmentShader,
+  });
+
+const cubo=new THREE.Mesh(geometry1,material3);
 
 scene.add(cubo);
 
