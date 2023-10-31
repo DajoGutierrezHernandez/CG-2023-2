@@ -16,15 +16,31 @@ controls.enableRotate = true;
 controls.minDistance = 3;
 controls.maxDistance = 500;
 
-const geometry1 = new THREE.BoxGeometry( 2, 2, 2, 16, 16, 16);
+const geometry1 = new THREE.SphereGeometry(2,16,16);
 
 const material1 = new THREE.MeshBasicMaterial({color: 0x006666,wireframe: true});
-const material2 = new THREE.MeshLambertMaterial({  color: 0x006666  ,wireframe: false,side: THREE.DoubleSide });
-const material3 = new THREE.MeshPhongMaterial({  color: 0x006666  ,wireframe: false,side: THREE.DoubleSide });
+const material2 = new THREE.MeshLambertMaterial({  color: 0x006666  ,wireframe: false });
+const material3 = new THREE.MeshPhongMaterial({  color: 0x006666  ,wireframe: false });
+const material4 = new THREE.MeshPhongMaterial({  color: 0x006666  ,wireframe: false });
 const sombra1 = new THREE.ShaderMaterial();
+const vertexShader = /*glsl*/`
+void main() {
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}
+`;
 
+const fragmentShader = /*glsl*/`
+void main() {
+  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+}
+`;
 
-const cubo=new THREE.Mesh(geometry1,material3);
+const material = new ShaderMaterial({
+  fragmentShader: fragmentShader,
+  vertexShader: vertexShader
+});
+
+const cubo=new THREE.Mesh(geometry1,material1);
 
 scene.add(cubo);
 
