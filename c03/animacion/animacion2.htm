@@ -7,6 +7,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- <script type="text/javascript" src="jquery-1.9.0.js"></script>. ERROR numero 2, se llama a un archivo que no existe, para solucionarlo se llama a un archivo en la nuve -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/10/Stats.min.js"></script>
     <style>
         body{
             /* configurar margin a 0 y overflow a hidden, para ocupar pantalla completa */
@@ -17,6 +18,9 @@
 </head>
 <body> 
 
+
+<div id="Stats-salida">
+</div>
 <!-- Div que contendre la salida -->
 <div id="WebGL-salida">
 </div> 
@@ -27,6 +31,8 @@
     // una vez que todo ha sido cargado, ejecutamos nuestro contenido Three.js.
     $(function () {
 
+
+        var stats = initStats();
         // creamos una scene, que contendrá todos nuestros elementos, como objetos, cámaras y luces
         var scene= new THREE.Scene();
 
@@ -102,14 +108,43 @@
 
         var spotLight=new THREE.SpotLight(0xffffff);
         spotLight.position.set(-40,60,-10);
+        spotLight.shadow.mapSize.width = 2048;
+        spotLight.shadow.mapSize.height = 2048;
+        spotLight.angle = Math.PI / 8.0;
         spotLight.castShadow=true;
         scene.add(spotLight);
 
         // añadir la salida de la renderizacion al elemento html
         $("#WebGL-salida").append(renderer.domElement); 
+        render();
 
-        // renderizar la escena
-        renderer.render(scene, camera); 
+        function render(){
+            stats.update();
+
+            cube.rotation.x += 0.02;
+            cube.rotation.y += 0.02;
+            cube.rotation.z += 0.02;
+
+            requestAnimationFrame(render);
+            renderer.render(scene, camera);
+
+        }
+
+        function initStats(){
+            var stats = new Stats();
+            stats.setMode(0);
+
+            stats.domElement.style.position='absolute';
+            stats.domElement.style.left='0px';
+            stats.domElement.style.top='0px';
+
+            $("#Stats-salida").append(stats.domElement);
+
+            return stats;
+
+        }
+
+        // renderizar la escena 
     });
 
 
